@@ -7,7 +7,6 @@ stage 'Build'
 stage 'Testing'
     node {
         echo 'Testing..'
-        checkout scm
     }
 
 stage 'Upload'
