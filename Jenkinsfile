@@ -11,7 +11,7 @@ stage 'Testing'
 
 stage 'Upload'
     node {
-    echo 'Uploading to artifactory....'
+    echo 'Uploading to artifactory.......'
     }
 
 stage 'Deploy'
