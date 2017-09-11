@@ -1,8 +1,8 @@
 stage 'Build'
     node {
         echo 'Building..'
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '8b1b3788-f57f-46fa-8c2d-eba57b1e5afe', url: 'http://10.0.0.238:30080/test-utc/pipeline-testing']]])
-    }
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/urwithrajesh/testing-pipeline']]])
+        }
 
 stage 'Testing'
     node {
