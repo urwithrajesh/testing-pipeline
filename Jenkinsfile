@@ -8,8 +8,6 @@ stage 'Testing'
     node {
         echo 'Testing..'
         checkout scm
-        sh 'make check || true' 
-        junit '**/target/*.xml'
     }
 
 stage 'Upload'
@@ -19,6 +17,6 @@ stage 'Upload'
 
 stage 'Deploy'
     node {
-        echo 'Deploying to server..'
+    echo 'Deploying to server..'
     }
     
