@@ -7,7 +7,7 @@ stage 'Build'
 stage 'Testing'
     node {
         echo 'Testing..'
-        junit '*.xml'
+        junit testDataPublishers: [[$class: 'AttachmentPublisher']], testResults: '/*.xml'
         publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
         
     }
@@ -21,4 +21,3 @@ stage 'Deploy'
     node {
     echo 'Deploying to server..'
     }
-    
