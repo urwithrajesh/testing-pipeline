@@ -3,13 +3,10 @@ stage 'Build'
         echo 'Building..'
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/urwithrajesh/testing-pipeline']]])
         
-        nodejs('office-node-') {
-    // some block
-     //   }
-        sh '''npm install
-        //junit test/*.js
-        '''
-        }
+      //  nodejs('office-node-') {
+    //    sh '''npm install
+      // '''
+       // }
         }
 
 stage 'Testing'
