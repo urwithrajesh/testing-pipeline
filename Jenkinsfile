@@ -7,7 +7,7 @@ stage 'Build'
 stage 'Testing'
     node {
         echo 'Testing..'
-        cleanWs()
+        //cleanWs()
         //junit testDataPublishers: [[$class: 'AttachmentPublisher']], testResults: '*.xml'
         publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
         
