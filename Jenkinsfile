@@ -5,11 +5,11 @@ stage 'Build'
         
         nodejs('office-node-') {
     // some block
-        }
+     //   }
         sh '''npm install
         npm install junit
         //junit test/*.js'''
-        
+        }
         }
 
 stage 'Testing'
