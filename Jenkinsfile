@@ -7,7 +7,8 @@ stage 'Build'
     // some block
      //   }
         sh '''npm install
-        //junit test/*.js'''
+        //junit test/*.js
+        '''
         }
         }
 
