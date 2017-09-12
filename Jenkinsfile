@@ -2,6 +2,11 @@ stage 'Build'
     node {
         echo 'Building..'
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/urwithrajesh/testing-pipeline']]])
+        
+        sh '''npm install
+        npm install junit
+        junit test/*.js'''
+        
         }
 
 stage 'Testing'
