@@ -20,7 +20,13 @@ stage 'Testing'
         //cleanWs()
         //junit testDataPublishers: [[$class: 'AttachmentPublisher']], testResults: '*.xml'
       //  publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
-        
+        sh '''
+            npm install
+            npm install junit
+            export XUNIT_FILE="test/xunit.xml";
+            rm -rf test/jshint-result.xml;
+    	    rm -rf test/xunit.xml;
+           '''
     }
 
 stage 'Upload'
