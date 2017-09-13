@@ -9,24 +9,23 @@ stage 'Build'
        // }
         }
 
-stage 'Testing'
+stage 'SonarQube-Testing'
     node {
         echo 'Testing..'
         withSonarQubeEnv('SonarQube') {
-          sh ' /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/office-SonarQube/bin/sonar-scanner -Dsonar.projectBaseDir=/var/jenkins_home/workspace/node-build-test'
-        //-Dsonar.projectBaseDir=/var/jenkins_home/workspace/node-build-test
-        //sonar.projectName=Test Project
-}
+          sh ' /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/office-SonarQube/bin/sonar-scanner -Dsonar.projectBaseDir=/var/jenkins_home/workspace/testing-pipeline'
+            }
         //cleanWs()
         //junit testDataPublishers: [[$class: 'AttachmentPublisher']], testResults: '*.xml'
       //  publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
-        sh '''
-            npm install
-            npm install junit
-            export XUNIT_FILE="test/xunit.xml";
-            rm -rf test/jshint-result.xml;
-    	    rm -rf test/xunit.xml;
-           '''
+       
+    // sh '''
+    //        npm install
+      //      npm install junit
+    //        export XUNIT_FILE="test/xunit.xml";
+    //        rm -rf test/jshint-result.xml;
+   // 	    rm -rf test/xunit.xml;
+    //       '''
     }
 
 stage 'Upload'
