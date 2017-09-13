@@ -1,9 +1,9 @@
-stage 'Build'
+stage 'Download'
     node {
         echo 'Building..'
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/urwithrajesh/testing-pipeline']]])
         
-      //  nodejs('office-node-') {
+      //  
     //    sh '''npm install
       // '''
        // }
@@ -19,15 +19,27 @@ stage 'SonarQube-Testing'
         //junit testDataPublishers: [[$class: 'AttachmentPublisher']], testResults: '*.xml'
       //  publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
        
-    // sh '''
-    //        npm install
-      //      npm install junit
+    // 
     //        export XUNIT_FILE="test/xunit.xml";
     //        rm -rf test/jshint-result.xml;
    // 	    rm -rf test/xunit.xml;
     //       '''
     }
-
+stage 'Junit-Test'
+  node {
+    echo 'Starting Junit Testing'
+  }
+Stage 'Build'
+  node {
+    echo 'Building Application'
+    nodejs('office-node-') 
+      {
+        sh '''
+          npm install
+          npm install junit
+          npm start &
+        '''
+  }
 stage 'Upload'
     node {
     echo 'Uploading to artifactory.........'
