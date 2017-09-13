@@ -13,7 +13,7 @@ stage 'SonarQube-Testing'
     node {
         echo 'Testing..'
         withSonarQubeEnv('SonarQube') {
-          sh ' /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/office-SonarQube/bin/sonar-scanner -Dsonar.projectBaseDir=/var/jenkins_home/workspace/testing-pipeline'
+          sh ' /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/office-SonarQube/bin/sonar-scanner -Dsonar.projectBaseDir=/var/jenkins_home/workspace/test-pipeline'
             }
         //cleanWs()
         //junit testDataPublishers: [[$class: 'AttachmentPublisher']], testResults: '*.xml'
