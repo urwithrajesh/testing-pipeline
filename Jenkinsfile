@@ -29,7 +29,7 @@ stage 'Junit-Test'
   node {
     echo 'Starting Junit Testing'
   }
-Stage 'Build'
+stage 'Build'
   node {
     echo 'Building Application'
     nodejs('office-node-') 
