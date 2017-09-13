@@ -13,8 +13,8 @@ stage 'Testing'
     node {
         echo 'Testing..'
         withSonarQubeEnv('SonarQube') {
-            sonar.projectName=Test Project
-    // some block.  
+        //sonar.projectName=Test Project
+        // some block.  
 }
         //cleanWs()
         //junit testDataPublishers: [[$class: 'AttachmentPublisher']], testResults: '*.xml'
