@@ -4,7 +4,7 @@ stage 'Download'
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/urwithrajesh/testing-pipeline']]])
         }
 
-stage 'SonarQube-Testing'
+stage 'SonarQube'
     node {
         echo 'Testing..'
         withSonarQubeEnv('SonarQube') {
@@ -12,7 +12,7 @@ stage 'SonarQube-Testing'
             }
     }
 
-stage 'Junit-Test'
+stage 'Junit'
   node {
     echo 'Starting Junit Testing'
   }
@@ -34,7 +34,7 @@ stage 'Upload'
     echo 'Uploading to artifactory.........'
     }
 
-stage('Deploy approval'){
+stage('Approval'){
     input "Deploy to prod?"
 }
 stage 'Deploy'
