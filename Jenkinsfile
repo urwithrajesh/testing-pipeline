@@ -13,9 +13,9 @@ stage 'Testing'
     node {
         echo 'Testing..'
         withSonarQubeEnv('SonarQube') {
+          sh ' ls -ltrh ; pwd '
         //-Dsonar.projectBaseDir=/var/jenkins_home/workspace/node-build-test
-        sonar.projectName=Test Project
-        // some block.  
+        //sonar.projectName=Test Project
 }
         //cleanWs()
         //junit testDataPublishers: [[$class: 'AttachmentPublisher']], testResults: '*.xml'
