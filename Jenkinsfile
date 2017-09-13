@@ -13,7 +13,8 @@ stage 'Testing'
     node {
         echo 'Testing..'
         withSonarQubeEnv('SonarQube') {
-        //sonar.projectName=Test Project
+        //-Dsonar.projectBaseDir=/var/jenkins_home/workspace/node-build-test
+        sonar.projectName=Test Project
         // some block.  
 }
         //cleanWs()
