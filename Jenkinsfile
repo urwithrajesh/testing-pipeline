@@ -34,6 +34,9 @@ stage 'Upload'
     echo 'Uploading to artifactory.........'
     }
 
+stage('Deploy approval'){
+    input "Deploy to prod?"
+}
 stage 'Deploy'
     node {
     echo 'Deploying to server..'
