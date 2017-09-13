@@ -13,6 +13,7 @@ stage 'Testing'
     node {
         echo 'Testing..'
         withSonarQubeEnv('SonarQube') {
+            sonar.projectName=Test Project
     // some block.  
 }
         //cleanWs()
