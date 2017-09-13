@@ -2,11 +2,6 @@ stage 'Download'
     node {
         echo 'Building..'
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/urwithrajesh/testing-pipeline']]])
-        
-      //  
-    //    sh '''npm install
-      // '''
-       // }
         }
 
 stage 'SonarQube-Testing'
@@ -15,20 +10,13 @@ stage 'SonarQube-Testing'
         withSonarQubeEnv('SonarQube') {
           sh ' /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/office-SonarQube/bin/sonar-scanner -Dsonar.projectBaseDir=/var/jenkins_home/workspace/test-pipeline'
             }
-        //cleanWs()
-        //junit testDataPublishers: [[$class: 'AttachmentPublisher']], testResults: '*.xml'
-      //  publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
-       
-    // 
-    //        export XUNIT_FILE="test/xunit.xml";
-    //        rm -rf test/jshint-result.xml;
-   // 	    rm -rf test/xunit.xml;
-    //       '''
     }
+
 stage 'Junit-Test'
   node {
     echo 'Starting Junit Testing'
   }
+
 stage 'Build'
   node {
     echo 'Building Application'
@@ -40,6 +28,7 @@ stage 'Build'
           npm start &
         '''
   }
+}
 stage 'Upload'
     node {
     echo 'Uploading to artifactory.........'
