@@ -12,8 +12,8 @@ stage 'Build'
 stage 'Testing'
     node {
         echo 'Testing..'
-        withSonarQubeEnv {
-    // some block
+        withSonarQubeEnv('SonarQube') {
+    // some block.  
 }
         //cleanWs()
         //junit testDataPublishers: [[$class: 'AttachmentPublisher']], testResults: '*.xml'
