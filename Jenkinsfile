@@ -36,7 +36,9 @@ stage('Approval'){
 stage 'Deploy'
     node {
     echo 'Deploying to server..'
-    sh 'rsync -auv /var/lib/jenkins/workspace/CICD-Demo/* /appl/node/'
+    sh '''forever stop  /appl/node/index.js
+        rsync -auv /var/lib/jenkins/workspace/CICD-Demo/* /appl/node/
+        forever start -al  /appl/logs/app.log /appl/node/index.js'''    
     }
 stage 'Notification'
     node {
