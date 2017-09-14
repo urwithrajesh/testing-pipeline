@@ -41,12 +41,9 @@ stage 'Deploy'
     node {
     echo 'Deploying to server..'
     }
-
-def summary = " Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' "
-
-// Default values
-def colorCode = '#FF0000'
-
-// Send slack notifications all messages
-slackSend baseUrl: 'https://utdigital.slack.com/services/hooks/jenkins-ci/', channel: 'chatops', message: summary , teamDomain: 'utdigital', token: 'a8p3yJ8BdYURLzmorsUyaIaI'
-
+stage 'Notification'
+    node {
+        def summary = " Running Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' "
+        // Send slack notifications all messages
+        slackSend baseUrl: 'https://utdigital.slack.com/services/hooks/jenkins-ci/', channel: 'chatops', message: summary , teamDomain: 'utdigital', token: 'a8p3yJ8BdYURLzmorsUyaIaI'
+    }
