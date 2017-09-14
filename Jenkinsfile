@@ -8,7 +8,7 @@ stage 'SonarQube'
     node {
         echo 'Testing..'
         withSonarQubeEnv('SonarQube') {
-          sh ' /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectBaseDir=/var/jenkins_home/workspace/Pipeline-Testing-Job'
+          sh ' /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/Pipeline-Testing-Job'
             }
     }
 
