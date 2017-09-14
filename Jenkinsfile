@@ -6,7 +6,7 @@ stage 'Download'
 
 stage 'SonarQube'
     node {
-        echo 'Testing..'
+        echo 'Testing...'
         withSonarQubeEnv('SonarQube') {
           sh ' /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/CICD-Demo'
             }
