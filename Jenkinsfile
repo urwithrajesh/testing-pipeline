@@ -1,6 +1,6 @@
 stage 'Download'
     node {
-        echo 'Building...'
+        echo 'Building.....'
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/urwithrajesh/testing-pipeline']]])
         }
 
