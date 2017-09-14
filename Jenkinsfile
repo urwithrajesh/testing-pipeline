@@ -41,4 +41,51 @@ stage 'Deploy'
     node {
     echo 'Deploying to server..'
     }
-slackSend baseUrl: 'https://utdigital.slack.com/services/hooks/jenkins-ci/', channel: 'chatops', message: 'Build Started: ${env.JOB_NAME} ${env.BUILD_NUMBER}', teamDomain: 'utdigital', token: 'a8p3yJ8BdYURLzmorsUyaIaI'
+
+// SLACK Settings ########
+
+
+def notifyBuildSlack(String buildStatus, String toChannel) {
+  // build status of null means successful
+  buildStatus =  buildStatus ?: 'SUCCESSFUL'
+  def toChannel = "#chatops"
+  def summary = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (<${env.BUILD_URL}|Jenkins>)"
+
+  // Default values
+  def colorCode = '#FF0000'
+
+  if (buildStatus == 'STARTED' || buildStatus == 'UNSTABLE') {
+    colorCode = '#FFFF00' // YELLOW
+  } else if (buildStatus == 'SUCCESSFUL') {
+    colorCode = '#00FF00' // GREEN
+  } else {
+    colorCode = '#FF0000' // RED
+  }
+
+  // Send slack notifications all messages
+  slackSend (color: colorCode, message: summary, channel: toChannel)
+}
+
+
+def notifyDeploySlack(String buildStatus, String toChannel) {
+  // build status of null means successful
+  buildStatus =  buildStatus ?: 'SUCCESSFUL'
+
+  def summary = "${buildStatus}: Deploy '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (<${env.BUILD_URL}|Jenkins>)"
+
+  def colorCode = '#FF0000'
+
+  if (buildStatus == 'STARTED' || buildStatus == 'UNSTABLE') {
+    colorCode = '#FFFF00' // YELLOW
+  } else if (buildStatus == 'SUCCESSFUL') {
+    colorCode = '#008000' // GREEN
+  } else {
+    colorCode = '#FF0000' // RED
+  }
+
+  // Send slack notifications all messages
+  slackSend (color: colorCode, message: summary, channel: toChannel)
+}
+
+
+//slackSend baseUrl: 'https://utdigital.slack.com/services/hooks/jenkins-ci/', channel: 'chatops', message: 'Build Started: ${env.JOB_NAME} ${env.BUILD_NUMBER}', teamDomain: 'utdigital', token: 'a8p3yJ8BdYURLzmorsUyaIaI'
