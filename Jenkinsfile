@@ -49,4 +49,4 @@ def colorCode = '#FF0000'
 
 // Send slack notifications all messages
 slackSend baseUrl: 'https://utdigital.slack.com/services/hooks/jenkins-ci/', channel: 'chatops', message: summary , teamDomain: 'utdigital', token: 'a8p3yJ8BdYURLzmorsUyaIaI'
-}
+
