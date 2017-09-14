@@ -20,7 +20,7 @@ stage 'Junit'
 stage 'Build'
   node {
     echo 'Building Application'
-    nodejs('office-node-') 
+    nodejs('NodeJS') 
       {
         sh '''
           npm install
