@@ -41,3 +41,4 @@ stage 'Deploy'
     node {
     echo 'Deploying to server..'
     }
+slackSend baseUrl: 'https://utdigital.slack.com/services/hooks/jenkins-ci/', channel: '"#chatops", message: "Build Started: ${env.JOB_NAME} ${env.BUILD_NUMBER}"', message: 'Hello !!! from $JOB_NAME', teamDomain: 'utdigital', token: 'a8p3yJ8BdYURLzmorsUyaIaI'
