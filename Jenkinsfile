@@ -36,6 +36,7 @@ stage('Approval'){
 stage 'Deploy'
     node {
     echo 'Deploying to server..'
+    sh 'rsync -auv /var/lib/jenkins/workspace/CICD-Demo/* /appl/node/'
     }
 stage 'Notification'
     node {
