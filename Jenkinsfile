@@ -29,10 +29,6 @@ stage 'Build'
         '''
   }
 }
-stage 'Upload'
-    node {
-    echo 'Uploading to artifactory.........'
-    }
 
 stage('Approval'){
     input "Deploy to prod?"
