@@ -2,6 +2,7 @@ def jenkins = 'jenkins-slave'
 stage 'Download'
     node(jenkins) {
         echo 'Building.......'
+        notifyBuildSlack(STARTED,chatops)
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/urwithrajesh/testing-pipeline']]])
         }
 
@@ -41,10 +42,7 @@ stage 'Deploy'
         rsync -auv /var/lib/jenkins/workspace/CICD-Demo/* /appl/node/
         '''
     }
-stage 'Notification'
-  node(jenkins) 
-  {
-    def notifyBuildSlack(String buildStatus, String toChannel) 
+def notifyBuildSlack(String buildStatus, String toChannel) 
     {
         // build status of null means successful
         buildStatus =  buildStatus ?: 'SUCCESSFUL'
@@ -58,21 +56,22 @@ stage 'Notification'
         } else {
           colorCode = '#FF0000' // RED
         }
-    def summary = " Dev Job STARTED '${env.JOB_NAME} [${env.BUILD_NUMBER}]. Check Status at (${env.BUILD_URL}console)' "
+ 
+ def summary = " Dev Job STARTED '${env.JOB_NAME} [${env.BUILD_NUMBER}]. Check Status at (${env.BUILD_URL}console)' "
          // Send slack notifications all messages
     slackSend (baseUrl: 'https://utdigital.slack.com/services/hooks/jenkins-ci/', channel: 'chatops', message: summary , teamDomain: 'utdigital', token: 'a8p3yJ8BdYURLzmorsUyaIaI')
-  }
+    }
 
-  def notifySlackApprovalApplicationOwner(String toChannel) 
-  {
+def notifySlackApprovalApplicationOwner(String toChannel) 
+    {
     def summary = "Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' is awaiting approval from Application Owner (<${env.BUILD_URL}input/|Jenkins>)"
     def colorCode = '#FF9900' // orange
     slackSend (baseUrl: 'https://utdigital.slack.com/services/hooks/jenkins-ci/', channel: 'chatops', message: summary , teamDomain: 'utdigital', token: 'a8p3yJ8BdYURLzmorsUyaIaI')
-  }
+    }
 
 
-  def notifyDeploySlack(String buildStatus, String toChannel) 
-  {
+def notifyDeploySlack(String buildStatus, String toChannel) 
+    {
     // build status of null means successful
     buildStatus =  buildStatus ?: 'SUCCESSFUL'
 
@@ -88,9 +87,8 @@ stage 'Notification'
       colorCode = '#FF0000' // RED
     }
 
-  // Send slack notifications all messages
-  slackSend (baseUrl: 'https://utdigital.slack.com/services/hooks/jenkins-ci/', channel: 'chatops', message: summary , teamDomain: 'utdigital', token: 'a8p3yJ8BdYURLzmorsUyaIaI')
-  }
-}
+    // Send slack notifications all messages
+    slackSend (baseUrl: 'https://utdigital.slack.com/services/hooks/jenkins-ci/', channel: 'chatops', message: summary , teamDomain: 'utdigital', token: 'a8p3yJ8BdYURLzmorsUyaIaI')
+    }
 
 
