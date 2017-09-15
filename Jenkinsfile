@@ -38,9 +38,7 @@ stage 'Deploy'
     node(jenkins) {
     echo 'Deploying to server..'
     sh '''
-        /home/jenkins/.nvm/versions/node/v8.5.0/bin/forever stop -c /home/jenkins/.nvm/versions/node/v8.5.0/bin/node /appl/node/index.js
         rsync -auv /var/lib/jenkins/workspace/CICD-Demo/* /appl/node/
-        /home/jenkins/.nvm/versions/node/v8.5.0/bin/forever start -al /appl/logs/app.log -c /home/jenkins/.nvm/versions/node/v8.5.0/bin/node /appl/node/index.js'''    
     }
 stage 'Notification'
     node(jenkins) {
