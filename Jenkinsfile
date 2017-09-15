@@ -1,4 +1,4 @@
-def jenkins = 'Slave'
+def jenkins = 'jenkins-slave'
 stage 'Download'
     node(jenkins) {
         echo 'Building.......'
