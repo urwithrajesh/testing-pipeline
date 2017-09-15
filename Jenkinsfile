@@ -2,7 +2,7 @@ def jenkins = 'jenkins-slave'
 stage 'Download'
     node(jenkins) {
         echo 'Building.......'
-        notifyBuildSlack(STARTED,chatops)
+        notifyBuildSlack('STARTED','chatops')
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/urwithrajesh/testing-pipeline']]])
         }
 
