@@ -24,9 +24,9 @@ stage 'Build'
     nodejs('NodeJS') 
       {
         sh '''
-          /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/npm install
-          /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/npm install junit
-          /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/npm start &
+          /home/jenkins/.nvm/versions/node/v8.5.0/bin/npm install
+          /home/jenkins/.nvm/versions/node/v8.5.0/bin/npm install junit
+          /home/jenkins/.nvm/versions/node/v8.5.0/bin/npm start &
         '''
   }
 }
