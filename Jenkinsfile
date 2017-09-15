@@ -38,9 +38,9 @@ stage 'Deploy'
     node(jenkins) {
     echo 'Deploying to server..'
     sh '''
-        /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/forever stop -c /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/node /appl/node/index.js
-        rsync -auv /var/lib/jenkins/workspace/CICD-Demo/* jenkins@52.203.224.253:/appl/node/
-        /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/forever start -al /appl/logs/app.log -c /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/node /appl/node/index.js'''    
+        /home/jenkins/.nvm/versions/node/v8.5.0/bin/forever stop -c /home/jenkins/.nvm/versions/node/v8.5.0/bin/node /appl/node/index.js
+        rsync -auv /var/lib/jenkins/workspace/CICD-Demo/* /appl/node/
+        /home/jenkins/.nvm/versions/node/v8.5.0/bin/forever start -al /appl/logs/app.log -c /home/jenkins/.nvm/versions/node/v8.5.0/bin/node /appl/node/index.js'''    
     }
 stage 'Notification'
     node(jenkins) {
