@@ -55,7 +55,7 @@ def notifyDeploySlack(String buildStatus, String toChannel)
 stage 'Download'
     node(jenkins) {
         echo 'Building.......'
-        notifyBuildSlack('STARTED','chatops')
+        notifyBuildSlack('Starting Dev JOB','chatops')
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/urwithrajesh/testing-pipeline']]])
         }
 
@@ -94,5 +94,5 @@ stage 'Deploy'
     sh '''
         rsync -auv /var/lib/jenkins/workspace/CICD-Demo/* /appl/node/
         '''
-     notifyDeploySlack('Finished','chatops')
+     notifyDeploySlack('Dev Job is Finished','chatops')
     }
