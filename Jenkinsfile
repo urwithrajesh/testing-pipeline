@@ -15,9 +15,6 @@ def notifyBuildSlack(String buildStatus, String toChannel)
         } else {
           colorCode = '#FF0000' // RED
         }
- 
- //def summary = " Dev Job STARTED '${env.JOB_NAME} [${env.BUILD_NUMBER}]. Check Status at (${env.BUILD_URL}console)' "
-         // Send slack notifications all messages
     slackSend (baseUrl: 'https://utdigital.slack.com/services/hooks/jenkins-ci/', channel: 'chatops', message: summary , teamDomain: 'utdigital', token: 'a8p3yJ8BdYURLzmorsUyaIaI')
     }
 
@@ -45,8 +42,6 @@ def notifyDeploySlack(String buildStatus, String toChannel)
     } else {
       colorCode = '#FF0000' // RED
     }
-
-    // Send slack notifications all messages
     slackSend (baseUrl: 'https://utdigital.slack.com/services/hooks/jenkins-ci/', channel: 'chatops', message: summary , teamDomain: 'utdigital', token: 'a8p3yJ8BdYURLzmorsUyaIaI')
     }
 
@@ -85,9 +80,6 @@ stage 'Build'
   }
 }
 
-//stage('Approval'){
-//    input "Deploy to prod?"
-//}
 stage 'Deploy'
     node(jenkins) {
     echo 'Deploying to server..'
