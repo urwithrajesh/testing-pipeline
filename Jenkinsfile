@@ -31,9 +31,9 @@ stage 'Build'
   }
 }
 
-stage('Approval'){
-    input "Deploy to prod?"
-}
+//stage('Approval'){
+//    input "Deploy to prod?"
+//}
 stage 'Deploy'
     node(jenkins) {
     echo 'Deploying to server..'
