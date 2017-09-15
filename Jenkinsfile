@@ -40,7 +40,7 @@ stage 'Deploy'
     sh '''
         /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/forever stop -c /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/node /appl/node/index.js
         rsync -auv /var/lib/jenkins/workspace/CICD-Demo/* /appl/node/
-        /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/bin/forever start -al /appl/logs/app.log -c /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/node /appl/node/index.js'''    
+        /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/forever start -al /appl/logs/app.log -c /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/node /appl/node/index.js'''    
     }
 stage 'Notification'
     node {
