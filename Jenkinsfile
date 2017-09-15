@@ -43,7 +43,7 @@ stage 'Deploy'
     }
 stage 'Notification'
     node(jenkins) {
-        def summary = " Dev Jon completed '${env.JOB_NAME} [${env.BUILD_NUMBER}]. Check Status at (${env.BUILD_URL}console)' "
+        def summary = " Dev Job completed '${env.JOB_NAME} [${env.BUILD_NUMBER}]. Check Status at (${env.BUILD_URL}console)' "
          // Send slack notifications all messages
         slackSend baseUrl: 'https://utdigital.slack.com/services/hooks/jenkins-ci/', channel: 'chatops', message: summary , teamDomain: 'utdigital', token: 'a8p3yJ8BdYURLzmorsUyaIaI'
     }
