@@ -1,47 +1,6 @@
+//Setting up functions to use 
+
 def jenkins = 'jenkins-slave'
-stage 'Download'
-    node(jenkins) {
-        echo 'Building.......'
-        notifyBuildSlack('STARTED','chatops')
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/urwithrajesh/testing-pipeline']]])
-        }
-
-stage 'SonarQube'
-    node(jenkins) {
-        echo 'Testing...'
-        withSonarQubeEnv('SonarQube') {
-          sh ' /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/CICD-Demo'
-            }
-    }
-
-stage 'Junit'
-  node(jenkins) {
-    echo 'Starting Junit Testing'
-  }
-
-stage 'Build'
-  node(jenkins) {
-    echo 'Building Application'
-    nodejs('NodeJS') 
-      {
-        sh '''
-          /home/jenkins/.nvm/versions/node/v8.5.0/bin/npm install
-          /home/jenkins/.nvm/versions/node/v8.5.0/bin/npm install junit
-          /home/jenkins/.nvm/versions/node/v8.5.0/bin/npm start &
-        '''
-  }
-}
-
-//stage('Approval'){
-//    input "Deploy to prod?"
-//}
-stage 'Deploy'
-    node(jenkins) {
-    echo 'Deploying to server..'
-    sh '''
-        rsync -auv /var/lib/jenkins/workspace/CICD-Demo/* /appl/node/
-        '''
-    }
 def notifyBuildSlack(String buildStatus, String toChannel) 
     {
         // build status of null means successful
@@ -91,4 +50,49 @@ def notifyDeploySlack(String buildStatus, String toChannel)
     slackSend (baseUrl: 'https://utdigital.slack.com/services/hooks/jenkins-ci/', channel: 'chatops', message: summary , teamDomain: 'utdigital', token: 'a8p3yJ8BdYURLzmorsUyaIaI')
     }
 
+// Starting Pipeline
 
+stage 'Download'
+    node(jenkins) {
+        echo 'Building.......'
+        notifyBuildSlack('STARTED','chatops')
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/urwithrajesh/testing-pipeline']]])
+        }
+
+stage 'SonarQube'
+    node(jenkins) {
+        echo 'Testing...'
+        withSonarQubeEnv('SonarQube') {
+          sh ' /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/CICD-Demo'
+            }
+    }
+
+stage 'Junit'
+  node(jenkins) {
+    echo 'Starting Junit Testing'
+  }
+
+stage 'Build'
+  node(jenkins) {
+    echo 'Building Application'
+    nodejs('NodeJS') 
+      {
+        sh '''
+          /home/jenkins/.nvm/versions/node/v8.5.0/bin/npm install
+          /home/jenkins/.nvm/versions/node/v8.5.0/bin/npm install junit
+          /home/jenkins/.nvm/versions/node/v8.5.0/bin/npm start &
+        '''
+  }
+}
+
+//stage('Approval'){
+//    input "Deploy to prod?"
+//}
+stage 'Deploy'
+    node(jenkins) {
+    echo 'Deploying to server..'
+    sh '''
+        rsync -auv /var/lib/jenkins/workspace/CICD-Demo/* /appl/node/
+        '''
+     notifyDeploySlack('Finished','chatops')
+    }
