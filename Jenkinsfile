@@ -1,32 +1,32 @@
-def jenkins = 'jenkins-slave'
+//def jenkins = 'jenkins-slave'
 stage 'Download'
-    node(jenkins) {
+    node {
         echo 'Building.......'
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/urwithrajesh/testing-pipeline']]])
         }
 
 stage 'SonarQube'
-    node(jenkins) {
+    node {
         echo 'Testing...'
         withSonarQubeEnv('SonarQube') {
-          sh ' /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/CICD-Demo'
+          sh ' /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/CICD-Demo-Prod'
             }
     }
 
 stage 'Junit'
-  node(jenkins) {
+  node {
     echo 'Starting Junit Testing'
   }
 
 stage 'Build'
-  node(jenkins) {
+  node {
     echo 'Building Application'
     nodejs('NodeJS') 
       {
         sh '''
-          /home/jenkins/.nvm/versions/node/v8.5.0/bin/npm install
-          /home/jenkins/.nvm/versions/node/v8.5.0/bin/npm install junit
-          /home/jenkins/.nvm/versions/node/v8.5.0/bin/npm start &
+          /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/npm install
+          /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin//npm install junit
+          /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin//npm start &
         '''
   }
 }
@@ -35,16 +35,16 @@ stage('Approval'){
     input "Deploy to prod?"
 }
 stage 'Deploy'
-    node(jenkins) {
+    node {
     echo 'Deploying to server..'
     sh '''
-        /home/jenkins/.nvm/versions/node/v8.5.0/bin/forever stop -c /home/jenkins/.nvm/versions/node/v8.5.0/bin/node /appl/node/index.js
+        /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/forever stop -c /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/node /appl/node/index.js
         rsync -auv /var/lib/jenkins/workspace/CICD-Demo/* /appl/node/
-        /home/jenkins/.nvm/versions/node/v8.5.0/bin/forever start -al /appl/logs/app.log -c /home/jenkins/.nvm/versions/node/v8.5.0/bin/node /appl/node/index.js'''    
+        /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/bin/forever start -al /appl/logs/app.log -c /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/node /appl/node/index.js'''    
     }
 stage 'Notification'
-    node(jenkins) {
-        def summary = " Running Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]. Check Status at (${env.BUILD_URL}console)' "
+    node {
+        def summary = " Production Job Finished '${env.JOB_NAME} [${env.BUILD_NUMBER}]. Check Status at (${env.BUILD_URL}console)' "
          // Send slack notifications all messages
         slackSend baseUrl: 'https://utdigital.slack.com/services/hooks/jenkins-ci/', channel: 'chatops', message: summary , teamDomain: 'utdigital', token: 'a8p3yJ8BdYURLzmorsUyaIaI'
     }
