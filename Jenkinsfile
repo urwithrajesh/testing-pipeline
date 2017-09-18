@@ -85,6 +85,11 @@ stage 'Build'
   }
 }
 
+stage 'Upload'
+node {
+    echo 'Updating Yum REPO'
+}
+
 stage('Approval'){
     notifySlackApprovalApplicationOwner('chatops')
     input "Deploy to prod?"
