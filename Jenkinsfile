@@ -58,7 +58,7 @@ stage 'SonarQube'
     node(jenkins) {
         echo 'Testing...'
         withSonarQubeEnv('SonarQube') {
-          sh ' /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/CICD-Demo'
+          sh ' /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectBaseDir=/var/lib/jenkins/workspace/CICD-Demo-Dev'
             }
     }
 
