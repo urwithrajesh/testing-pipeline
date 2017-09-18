@@ -75,9 +75,12 @@ stage 'Build'
     nodejs('NodeJS') 
       {
         sh '''
-          /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin/npm install
-          /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin//npm install junit
-          /var/lib/jenkins/.nvm/versions/node/v8.5.0/bin//npm start &
+        rm -rf /var/lib/jenkins/rpmbuild/SOURCES/*
+        mkdir -p nodejsapp-1.0
+        rsync -rv * nodejsapp-1.0 
+        tar -cvf nodejsapp-1.0.tar.gz nodejsapp-1.0
+        cp nodejsapp-1.0.tar.gz /var/lib/jenkins/rpmbuild/SOURCES/ 
+        rpmbuild -ba -vv  cicd.spec
         '''
   }
 }
