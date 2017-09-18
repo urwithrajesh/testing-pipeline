@@ -18,7 +18,7 @@ CDR Platform is awesome product.
 %setup -q
 
 %build
-npm install
+/var/lib/jenkins/.nvm/versions/node/v8.5.0/lib/node_modules/npm install
 
 %install
 mkdir -p $RPM_BUILD_ROOT/appl/node
