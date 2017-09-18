@@ -98,7 +98,7 @@ stage 'Deploy'
     node {
     echo 'Deploying to server..'
     sh '''
-        rsync -auv /var/lib/jenkins/workspace/CICD-Demo/* /appl/node/
+        rsync -auv /var/lib/jenkins/workspace/CICD/CICD-Demo/* /appl/node/
         '''
     notifyDeploySlack('Production Job Finished','chatops')
     }
