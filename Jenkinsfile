@@ -3,7 +3,7 @@ def notifyBuildSlack(String buildStatus, String toChannel)
     {
         // build status of null means successful
         buildStatus =  buildStatus ?: 'SUCCESSFUL'
-        def summary = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (<${env.BUILD_URL}|Jenkins>)"
+        def summary = "${buildStatus}: '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (<${env.BUILD_URL}|Jenkins>)"
         def colorCode = '#FF0000'
 
         if (buildStatus == 'STARTED' || buildStatus == 'UNSTABLE') {
@@ -32,7 +32,7 @@ def notifyDeploySlack(String buildStatus, String toChannel)
     // build status of null means successful
     buildStatus =  buildStatus ?: 'SUCCESSFUL'
 
-    def summary = "${buildStatus}: Deploy '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (<${env.BUILD_URL}|Jenkins>)"
+    def summary = "${buildStatus}: '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (<${env.BUILD_URL}|Jenkins>)"
 
     def colorCode = '#FF0000'
 
