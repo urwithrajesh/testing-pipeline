@@ -52,8 +52,11 @@ def notifyDeploySlack(String buildStatus, String toChannel)
 stage 'Download'
     node {
         echo 'Building.......'
-        notifyBuildSlack('Starting Prod Job','chatops')
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/urwithrajesh/testing-pipeline']]])
+        //notifyBuildSlack('Starting Prod Job','chatops')
+        //checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/urwithrajesh/testing-pipeline']]])
+        notifyBuildSlack('Starting  Job','chatops')
+        checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/urwithrajesh/testing-pipeline']]])
+
         }
 
 stage 'SonarQube'
